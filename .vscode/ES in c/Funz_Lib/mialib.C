@@ -119,3 +119,24 @@ void CAP(int _base, int _altezza, int* _area, int* _perimetro){
     *_perimetro = tmpPerimetro;
 }
 
+bool SCA(int* _a, int* _b){
+
+
+    if(*_a > *_b){
+
+        int tmp;
+        tmp = *_a;
+        *_a = *_b;
+        *_b = tmp;
+
+        printf("prova1");
+
+        return (true);
+    }
+    else{
+        return (false);
+        printf("prova2");
+    }
+
+
+}

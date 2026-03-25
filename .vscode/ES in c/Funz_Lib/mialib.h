@@ -81,3 +81,11 @@ void rd (int* _n);
  */
 
  void CAP(int _base, int _altezza, int* _area, int* _perimetro);
+
+ /**
+  * visualizza a video N numeri casuali primi successivi ad un valore di riferiment
+  * @param int Valore di riferimento
+  * @param int Numero di primi da visualizzare
+  */
+
+bool SCA(int _a, int _b);
