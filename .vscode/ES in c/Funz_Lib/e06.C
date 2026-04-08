@@ -8,8 +8,8 @@ void printReverse(int n){
     if (n < 10) {
         printf("%d", n);
     } else {
-        printf("%d", n % 10);
-        printReverse(n / 10);
+        printf("%d", n % 10); //da il primo numero a destra dividendo x 10.
+        printReverse(n / 10); //funziona tipo a ciclo e continua a far funzionare l'else finché n non è più grande di 10.
     }
 }
 
