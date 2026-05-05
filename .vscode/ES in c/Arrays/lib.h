@@ -13,3 +13,22 @@ void initvettore(int _vet[], int _dim);
  * @param int dimensione del vet
  */
 void stampavettore(int _vet[], int _dim);
+
+// funzioni e03.c
+
+/**
+ * fuinzione che converte un numero intero in un array binario
+ * @param int 1 num
+ * @param int [] vettore
+ * @param int dimensione vet
+ * @return se vero o falso della converione
+ */
+ int convertiBinario(int _n, int _v[], int _dim);
+
+/**
+ * stampa vettore in bit
+ * @param int[] riferimento vet
+ * @param int dimensione vet
+ */
+
+ void stampaBinario(int _v[], int _dim);
