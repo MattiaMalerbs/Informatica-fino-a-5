@@ -36,3 +36,15 @@ void caricaMatrice(int row, int cols, int m[row][cols]);
 //stampa matrice
 
 void stampaMatrice(int row, int cols, int m[row][cols]);
+
+///
+
+//Ordina un vettore in modo crescente o decrescente a scelta dell'utente
+
+void ordinaVettore(int _v[], int _dim, int _mode);
+
+///
+
+//Carica una matrice con 0/1 alternati
+
+void caricaMatriceScacchiera(int _rows, int _cols, int _m[_rows][_cols]);

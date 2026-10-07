@@ -116,3 +116,54 @@ void stampaMatrice(int row, int cols, int m[row][cols]){
         printf("\n");
     }
 }
+
+/////
+
+void caricaMatriceScacchiera(int _rows, int _cols, int _m[_rows][_cols]){
+    int i, j;
+    int cella;
+    srand(time(NULL));
+    
+    cella = 0;
+    for(i=0; i<_rows; i++){
+        for(j=0; j<_cols; j++){
+            do{
+                _m[i][j] = 1 + rand()%99;
+            }
+            while(cella%2 != _m[i][j]%2);
+            cella++;
+        }
+    }
+}
+
+/////
+
+void ordinaVettore(int _v[], int _dim, int _mode){
+    int i, j; // indici delle iterative.
+    int box;
+
+    if(_mode == 0){ // ordinamento decrescente
+        for(i=0; i<_dim; i++){
+            for(j=i; j<_dim; j++){
+                if(_v[j] > _v[i]){
+                    box = _v[i];
+                    _v[i] = _v[j];
+                    _v[j] = box;
+                }
+            }
+        }
+    }
+    if(_mode == 1){ // ordinamento crescente
+        for(i=0; i<_dim; i++){
+            for(j=i; j<_dim; j++){
+                if(_v[j] < _v[i]){
+                    box = _v[i];
+                    _v[i] = _v[j];
+                    _v[j] = box;
+                }
+            }
+        }
+    }
+    
+}
+/////
