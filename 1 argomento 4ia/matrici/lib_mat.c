@@ -167,3 +167,38 @@ void ordinaVettore(int _v[], int _dim, int _mode){
     
 }
 /////
+
+/* provare a creare le funzioni per le seguenti richieste:
+1. Calcolo del valor medio della matrice.
+2. Stampa della matrice con somma totale di ogni singola riga.
+3. Somma totale del triangolo inferiore e del triangolo superiore.
+*/
+
+/////
+
+int confronta(int _rows, int _cols, int _m[_rows][_cols], int vet[], int dim[]){
+
+    int i, j, a;
+    int cnt = 0;
+
+    if(dim != _cols ){
+        return 0;
+    }
+
+    for(i = 0; i < _rows; i++){
+        
+        for(j = 0; j < _cols; j++){
+            for(a = 0; a < dim; a++){
+                if(_m[i][j] == vet[a]){
+                    cnt ++;
+                }
+            }
+        }
+    if(cnt == _rows){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+}
