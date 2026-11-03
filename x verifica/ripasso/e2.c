@@ -1,0 +1,41 @@
+/* Esercitazione sulle matrici e funzioni che ricevono matrici. */
+#include <stdio.h>
+#include "lib.c"
+
+#define DIM 10
+#define ROWS 5  // definisco nr. righe della matrice.
+#define COLS 5  // definisco nr. colonne della matrice.
+
+int main(){
+    int matrix[ROWS][COLS];
+    int vett[COLS];
+
+    caricaMatrice(ROWS, COLS, matrix);
+    stampaMatrice(ROWS, COLS, matrix);
+    printf("\n\n");
+    caricaMatriceScacchiera(ROWS, COLS, matrix);
+    stampaMatrice(ROWS, COLS, matrix);
+    printf("\n");
+    printf("Valor medio della matrice: %.2f\n\n", calcolaMediaMatrice(ROWS, COLS, matrix));
+    stampaSommeRigheMatrice(ROWS, COLS, matrix);
+    printf("\n\n");
+    triangoloInfSupMatrice(ROWS, COLS, matrix);
+    printf("\n\n");
+
+    //caricaVettore(vett, COLS, 0, 99);
+    /*  Il ciclo FOR seguente assegna al vettore i valori della 4° riga della matrice,
+        trick utile per verificare la funzione trovaVettoreMatrice e vedere se restituisce
+        un true. Una volta verificato il corretto funzionamento, commentare le righe 31-32 e
+        abilitare la riga 25.
+    */
+    for(int i=0; i<COLS; i++)
+        vett[i] = matrix[3][i];
+
+    stampaVettore(vett, COLS);
+    printf("\n");
+    if(trovaVettoreMatrice(ROWS, COLS, matrix, vett) == true)
+        printf("Il vettore e' presente in ALMENO una riga della matrice\n");
+    else
+        printf("Il vettore non e' presente nella matrice!\n");
+    return 0;
+}
