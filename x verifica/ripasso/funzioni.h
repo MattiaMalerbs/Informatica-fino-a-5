@@ -1430,4 +1430,102 @@ void sostituisciInMatrice(int _rows, int _cols, int _m[_rows][_cols], int _vecch
  */
 int contaPrimiMatrice(int _rows, int _cols, int _m[_rows][_cols]);
 
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+//altro
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+
+/* ============================================================
+ *  UTILITY VETTORI
+ * ============================================================ */
+
+/**
+ * @brief Stampa il vettore in formato colonna.
+ * @details Itera da 0 a _n-1 stampando l'indice tra parentesi e il rispettivo valore a capo.
+ */
+void stampaVettoreColonna(int _n, int _v[_n]);
+
+/**
+ * @brief Stampa gli indici in cui compare un determinato valore.
+ * @return Restituisce il numero totale di occorrenze trovate.
+ */
+int stampaPosizioniValore(int _n, int _v[_n], int _valore);
+
+/**
+ * @brief Restituisce il valore presente in una specifica posizione con controllo limiti.
+ * @return Il valore trovato, oppure -1 se la posizione non è valida.
+ */
+int valoreInPosizione(int _n, int _v[_n], int _posizione);
+
+/**
+ * @brief Stampa solo una porzione (sottovettore) del vettore principale.
+ * @details Verifica che gli indici di inizio e fine siano validi e compresi tra 0 e _n-1.
+ */
+bool stampaSottoVettore(int _n, int _v[_n], int _inizio, int _fine);
+
+
+/* ============================================================
+ *  UTILITY MATRICI
+ * ============================================================ */
+
+/**
+ * @brief Riempie la matrice seguendo uno schema a scacchiera (pari/dispari).
+ * @details Ogni cella alternata deve contenere un numero con la stessa parità dell'indice della cella.
+ */
+void caricaMatriceScacchiera(int _rows, int _cols, int _m[_rows][_cols]);
+
+
+/* ============================================================
+ *  MINIGIOCO: CATCH THE PIN
+ * ============================================================ */
+
+/** @brief Genera il codice segreto casuale (cifre da 0 a 9). */
+void creaCodiceSegreto(int segreto[], int dim);
+
+/** @brief Chiede all'utente di inserire una combinazione cifra per cifra con validazione. */
+void richiediCodiceUtente(int utente[], int dim);
+
+/** 
+ * @brief Verifica la combinazione dell'utente rispetto a quella segreta.
+ * @details Stampa il numero se è corretto nella posizione giusta, altrimenti un punto interrogativo '?'.
+ * @return true se il codice è interamente indovinato, false altrimenti.
+ */
+bool verificaCodice(int segreto[], int utente[], int dim);
+
+
+/* ============================================================
+ *  MINIGIOCO: BATTAGLIA NAVALE
+ * ============================================================ */
+
+ // --- COSTANTI PER LA BATTAGLIA NAVALE ---
+#define LATO 10    // Dimensione della griglia di gioco (10x10)
+#define NUM_NAVI 4 // Numero totale di navi da posizionare
+
+/** @brief Inizializza l'intera griglia di gioco ponendo tutto a 0 (acqua). */
+void preparaCampo(int campo[LATO][LATO]);
+
+/** 
+ * @brief Posiziona casualmente le navi sulla griglia evitando sovrapposizioni e fuoriguida.
+ * @details Gestisce navi di lunghezza variabile (es. 4, 3, 3, 2) in verticale o orizzontale.
+ */
+int piazzaNavi(int campo[LATO][LATO]);
+
+/** 
+ * @brief Stampa a schermo la griglia di gioco.
+ * @details Traduce i numeri interni in caratteri visivi (~ acqua, o acqua colpita, X nave colpita, # nave).
+ */
+void stampaCampo(int campo[LATO][LATO], bool mostraNavi);
+
+/** @brief Chiede all'utente le coordinate (riga e colonna) in cui sparare, convertendole da 1-based a 0-based. */
+void chiediColpo(int *riga, int *colonna);
+
+/** 
+ * @brief Elabora il colpo sparato dall'utente.
+ * @return 0 se è acqua, 1 se ha colpito una nave (aggiornando a 3), 2 se aveva già sparato lì.
+ */
+int controllaColpo(int campo[LATO][LATO], int riga, int colonna);
+
 #endif /* FUNZIONI_H */

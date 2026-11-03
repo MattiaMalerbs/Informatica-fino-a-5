@@ -1248,3 +1248,259 @@ int contaPrimiMatrice(int _rows, int _cols, int _m[_rows][_cols]) {
             if (verificaPrimo(_m[i][j])) cont++;
     return cont;
 }
+
+////////////////////////////////////////////
+//altro
+////////////////////////////////////////////
+
+/* ============================================================
+ *  AGGIUNTE: VETTORI E MATRICI UTILITY
+ * ============================================================ */
+
+void stampaVettoreColonna(int _n, int _v[_n]) {
+    // Scorre l'array e va a capo a ogni elemento mostrando l'indice esatto
+    for (int i = 0; i < _n; i++)
+        printf("[%d] = %d\n", i, _v[i]);
+}
+
+int stampaPosizioniValore(int _n, int _v[_n], int _valore) {
+    int cnt = 0;
+    for (int i = 0; i < _n; i++) {
+        if (_v[i] == _valore) {
+            printf("%d ", i); // Stampa l'indice in cui compare il valore cercato
+            cnt++;            // Incrementa il contatore delle occorrenze
+        }
+    }
+    return cnt;
+}
+
+int valoreInPosizione(int _n, int _v[_n], int _posizione) {
+    // Controllo di sicurezza: evita il Segmentation Fault se l'indice è fuori dai limiti
+    if (_posizione >= 0 && _posizione < _n)
+        return _v[_posizione];
+    return -1; // Codice d'errore se la posizione non esiste
+}
+
+bool stampaSottoVettore(int _n, int _v[_n], int _inizio, int _fine) {
+    // Controlli di validità dell'intervallo richiesto
+    if (_inizio < 0 || _inizio >= _n) return false;
+    if (_fine < 0 || _fine >= _n) return false;
+    if (_inizio > _fine) return false;
+    
+    // Stampa solo dal punto 'inizio' al punto 'fine'
+    for (int i = _inizio; i <= _fine; i++)
+        printf("%d ", _v[i]);
+    printf("\n");
+    return true;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
+void caricaMatriceScacchiera(int _rows, int _cols, int _m[_rows][_cols]) {
+    int cella = 0;
+    for (int i = 0; i < _rows; i++) {
+        for (int j = 0; j < _cols; j++) {
+            // Ciclo do-while: genera numeri casuali finché la parità del numero
+            // non coincide con la parità della cella (creando uno schema alternato)
+            do {
+                _m[i][j] = 1 + rand() % 99;
+            } while (cella % 2 != _m[i][j] % 2); 
+            cella++;
+        }
+    }
+}
+
+//o prova anche questo
+
+void caricaMatriceScacchiera_2(int _rows, int _cols, int _m[_rows][_cols]) {
+    for (int i = 0; i < _rows; i++) {
+        for (int j = 0; j < _cols; j++) {
+            // (i + j) % 2 è 0 per le celle pari della scacchiera, 1 per le dispari.
+            int paritaRichiesta = (i + j) % 2; 
+            do {
+                _m[i][j] = 1 + rand() % 99;
+            } while (_m[i][j] % 2 != paritaRichiesta);
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+/* ============================================================
+ *  AGGIUNTE: MINIGIOCO CATCH THE PIN
+ * ============================================================ */
+
+void creaCodiceSegreto(int segreto[], int dim) {
+    // Sfrutta la funzione casuale dei vettori per generare cifre tra 0 e 9
+    riempiVettoreCasuale(dim, segreto, 0, 9);
+}
+
+void richiediCodiceUtente(int utente[], int dim) {
+    for (int i = 0; i < dim; i++) {
+        // Forza l'utente a inserire un numero valido compreso strettamente tra 0 e 9
+        do {
+            printf("Inserisci la %d^ cifra (0-9): ", i + 1);
+            scanf("%d", &utente[i]);
+        } while (utente[i] < 0 || utente[i] > 9);
+    }
+}
+
+bool verificaCodice(int segreto[], int utente[], int dim) {
+    int giuste = 0;
+    for (int i = 0; i < dim; i++) {
+        if (segreto[i] == utente[i]) {
+            giuste++;
+            printf(" %2d ", segreto[i]); // Mostra la cifra se è corretta
+        } else {
+            printf(" ? ");            // Nasconde la cifra errata con un punto interrogativo
+        }
+    }
+    printf("\n");
+    return (giuste == dim); // Restituisce true solo se TUTTE le cifre sono al posto giusto
+}
+
+
+/* ============================================================
+ *  AGGIUNTE: MINIGIOCO BATTAGLIA NAVALE
+ * ============================================================ */
+
+void preparaCampo(int campo[LATO][LATO]) {
+    // Pulisce la griglia impostando ogni cella a 0 (acqua pulita)
+    riempiMatriceCon(LATO, LATO, campo, 0);
+}
+
+int piazzaNavi(int campo[LATO][LATO]) {
+    int lunghezze[NUM_NAVI] = {4, 3, 3, 2}; // Dimensioni delle 4 navi
+    int occupate = 0;
+    bool libero;
+
+    for (int n = 0; n < NUM_NAVI; n++) {
+        int lung = lunghezze[n];
+        int r, c, dr, dc;
+        
+        do {
+            // 1. Sceglie una coordinata di partenza casuale
+            r = rand() % LATO;
+            c = rand() % LATO;
+            
+            // 2. Sceglie casualmente la direzione: 0 = Orizzontale (dr=0, dc=1), 1 = Verticale (dr=1, dc=0)
+            if (rand() % 2 == 0) { dr = 0; dc = 1; } 
+            else                 { dr = 1; dc = 0; } 
+
+            // 3. Controlla se la nave ci sta dentro la griglia e se lo spazio è sgombro (== 0)
+            libero = true;
+            for (int k = 0; k < lung && libero; k++) {
+                int rr = r + dr * k;
+                int cc = c + dc * k;
+                if (rr >= LATO || cc >= LATO || campo[rr][cc] != 0)
+                    libero = false; // Spazio occupato o fuori bordo, ripete il do-while
+            }
+        } while (!libero);
+
+        // 4. Se lo spazio è libero, piazza effettivamente la nave segnandola con 1
+        for (int k = 0; k < lung; k++) {
+            campo[r + dr * k][c + dc * k] = 1;
+            occupate++;
+        }
+    }
+    return occupate;
+}
+
+void stampaCampo(int campo[LATO][LATO], bool mostraNavi) {
+    // Stampa l'intestazione delle colonne (da 1 a 10)
+    printf("   ");
+    for (int j = 0; j < LATO; j++)
+        printf("%2d ", j + 1);
+    printf("\n");
+
+    // Stampa riga per riga la matrice traducendo i codici numerici in simboli di gioco
+    for (int i = 0; i < LATO; i++) {
+        printf("%2d ", i + 1); // Indice di riga
+        for (int j = 0; j < LATO; j++) {
+            if (campo[i][j] == 2)
+                printf(" o "); // Acqua mancata (colpo a vuoto)
+            else if (campo[i][j] == 3)
+                printf(" X "); // Nave colpita in pieno
+            else if (campo[i][j] == 1 && mostraNavi)
+                printf(" # "); // Nave intera (visibile solo se richiesto dal debug)
+            else
+                printf(" ~ "); // Acqua nascosta / mare aperto
+        }
+        printf("\n");
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void chiediColpo(int *riga, int *colonna) {
+    // Chiede riga all'utente controllando che rientri nei limiti del tabellone
+    do {
+        printf("Riga (1-%d): ", LATO);
+        scanf("%d", riga);
+    } while (*riga < 1 || *riga > LATO);
+    
+    // Chiede colonna con lo stesso controllo
+    do {
+        printf("Colonna (1-%d): ", LATO);
+        scanf("%d", colonna);
+    } while (*colonna < 1 || *colonna > LATO);
+    
+    // CONVERSIONE CRUCIALE: L'utente inserisce da 1 a 10, ma gli array in C partono da 0 a 9.
+    (*riga)--; 
+    (*colonna)--;
+}
+
+// o prova anche questo
+
+void chiediColpo(int *riga, int *colonna) {
+    int r, c;
+    do {
+        printf("Riga (1-%d): ", LATO);
+        // Controlliamo che scanf legga effettivamente un intero
+        if (scanf("%d", &r) != 1) {
+            // Se l'utente inserisce lettere, puliamo il buffer per evitare loop infiniti
+            while (getchar() != '\n');
+            r = -1; // Forza la ripetizione del ciclo
+        }
+    } while (r < 1 || r > LATO);
+
+    do {
+        printf("Colonna (1-%d): ", LATO);
+        if (scanf("%d", &c) != 1) {
+            while (getchar() != '\n');
+            c = -1;
+        }
+    } while (c < 1 || c > LATO);
+
+    *riga = r - 1;     // Conversione da 1..LATO a 0..LATO-1
+    *colonna = c - 1;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+int controllaColpo(int campo[LATO][LATO], int riga, int colonna) {
+    // Se la cella è già 2 o 3, significa che l'utente aveva già sparato in questa posizione
+    if (campo[riga][colonna] >= 2)
+        return 2; 
+        
+    // Se trova 1, c'è una nave: la colpisce trasformando il valore in 3
+    if (campo[riga][colonna] == 1) {
+        campo[riga][colonna] = 3; 
+        return 1; // Colpo andato a segno!
+    }
+    
+    // Altrimenti (trova 0), è acqua: trasforma in 2
+    campo[riga][colonna] = 2; 
+    return 0; // Acqua
+}

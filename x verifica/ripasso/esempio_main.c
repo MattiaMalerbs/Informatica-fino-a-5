@@ -80,5 +80,46 @@ int main(void) {
     if (calcolaMatriceInversa(2, a2, inv))
         printf("\nInversa di {{1,2},{3,4}}: [%.1f %.1f; %.1f %.1f]\n", inv[0][0], inv[0][1], inv[1][0], inv[1][1]);
 
+
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+    //altro
+    //////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////
+
+
+    /* ----- TEST FUNZIONI AGGIUNTIVE: VETTORI ----- */
+    printf("\n--- Test Utility Vettori ---\n");
+    printf("Stampa in colonna:\n");
+    stampaVettoreColonna(n, v);
+
+    printf("Il valore alla posizione 2: %d\n", valoreInPosizione(n, v, 2));
+    
+    printf("Sotto-vettore (dall'indice 1 al 3): ");
+    stampaSottoVettore(n, v, 1, 3);
+
+    /* ----- TEST FUNZIONI AGGIUNTIVE: MATRICI ----- */
+    printf("\n--- Test Matrice a Scacchiera (3x3) ---\n");
+    int mScacchiera[3][3];
+    caricaMatriceScacchiera(3, 3, mScacchiera);
+    stampaMatrice(3, 3, mScacchiera);
+
+    /* ----- TEST MINIGIOCHI (Commentati per evitare blocchi da input da tastiera) ----- */
+    /*
+    // Catch the Pin
+    int codice[3], utente[3];
+    creaCodiceSegreto(codice, 3);
+    printf("\n[Catch the Pin] Codice segreto generato!\n");
+    // richiediCodiceUtente(utente, 3);
+    // verificaCodice(codice, utente, 3);
+
+    // Battaglia Navale
+    int campoBattaglia[LATO][LATO];
+    preparaCampo(campoBattaglia);
+    piazzaNavi(campoBattaglia);
+    printf("\n[Battaglia Navale] Campo preparato (navi visibili):\n");
+    stampaCampo(campoBattaglia, true);
+    */
+
     return 0;
 }
