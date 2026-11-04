@@ -81,6 +81,69 @@ int main(void) {
         printf("\nInversa di {{1,2},{3,4}}: [%.1f %.1f; %.1f %.1f]\n", inv[0][0], inv[0][1], inv[1][0], inv[1][1]);
 
 
+    /* ===== FUNZIONI AGGIUNTE: NUMERI ===== */
+    printf("\n2^10 = %lld   radice intera di 50 = %d\n", calcolaPotenza(2, 10), calcolaRadiceIntera(50));
+    printf("Divisori di 36: %d\n", contaDivisori(36));
+    printf("28 e' perfetto? %s   153 e' di Armstrong? %s\n",
+           verificaNumeroPerfetto(28) ? "si" : "no", verificaNumeroArmstrong(153) ? "si" : "no");
+    int fattori[32], nFattori;
+    scomponiInFattoriPrimi(360, fattori, &nFattori);
+    printf("360 = ");
+    stampaVettore(nFattori, fattori);
+    printf("C(5,2) = %lld\n", calcolaBinomiale(5, 2));
+    int cifreBin[4] = {1, 0, 1, 0};
+    printf("1010 in base 2 = %lld in decimale\n", convertiDaBaseInDecimale(4, cifreBin, 2));
+
+    /* ===== FUNZIONI AGGIUNTE: VETTORI ===== */
+    int kad[9] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    printf("\nSomma massima di un tratto consecutivo: %d\n", trovaSommaSottovettoreMax(9, kad));
+    int c5[5] = {1, 2, 3, 4, 5};
+    printf("Coppie con somma 6: %d\n", contaCoppieSommaVettore(5, c5, 6));
+
+    int senzaPari[6] = {1, 2, 3, 4, 5, 6}, nSenzaPari = 6;
+    eliminaPariVettore(&nSenzaPari, senzaPari);
+    printf("Senza i pari:             ");
+    stampaVettore(nSenzaPari, senzaPari);
+
+    int rot[5] = {1, 2, 3, 4, 5};
+    ruotaSinistraKVettore(5, rot, 2);
+    printf("Ruotato a sinistra di 2:  ");
+    stampaVettore(5, rot);
+    invertiParteVettore(5, rot, 1, 3);
+    printf("Invertiti gli elementi 1..3: ");
+    stampaVettore(5, rot);
+    mescolaVettore(5, rot);
+    printf("Mescolato:                ");
+    stampaVettore(5, rot);
+    ordinaQuickSort(5, rot);
+    printf("Quick sort:               ");
+    stampaVettore(5, rot);
+
+    int dati[7] = {0, 1, 1, 3, 5, 5, 5}, freq[6];
+    calcolaIstogrammaVettore(7, dati, 5, freq);
+    printf("Frequenze dei valori 0..5: ");
+    stampaVettore(6, freq);
+
+    /* ===== FUNZIONI AGGIUNTE: MATRICI ===== */
+    int scacchiera[4][4];
+    riempiMatriceScacchiera(4, 4, scacchiera);
+    printf("\nScacchiera:\n");
+    stampaMatrice(4, 4, scacchiera);
+
+    int tabellina[4][5];
+    riempiMatriceTabellina(4, 5, tabellina);
+    printf("Tabellina allineata:\n");
+    stampaMatriceAllineata(4, 5, tabellina, 4);
+
+    int quadrata[3][3];
+    riempiMatriceProgressiva(3, 3, quadrata, 1);
+    ruotaMatriceQuadrata90OrarioSulPosto(3, quadrata);
+    printf("Matrice 1..9 ruotata di 90 gradi in senso orario:\n");
+    stampaMatrice(3, 3, quadrata);
+
+    int segni[2][3] = {{1, -2, 0}, {3, 0, -4}};
+    printf("Positivi: %d   Negativi: %d\n", contaPositiviMatrice(2, 3, segni), contaNegativiMatrice(2, 3, segni));
+    
     //////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////
     //altro

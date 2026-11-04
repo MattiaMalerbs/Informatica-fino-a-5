@@ -22,6 +22,7 @@
  *      2.7 Determinante        2.8 Conversioni
  *   3. EXTRA
  *      3.1 Numeri e utilita'   3.2 Vettori extra   3.3 Matrici extra
+ *      3.4 Altre funzioni utili
  * ============================================================
  */
 
@@ -978,6 +979,7 @@ void vettoreInMatrice(int _rows, int _cols, int _v[_rows * _cols], int _m[_rows]
 /* ============================================================
  *  3. FUNZIONI EXTRA
  *     3.1 Numeri e utilita'   3.2 Vettori extra   3.3 Matrici extra
+ *     3.4 Altre funzioni utili
  * ============================================================ */
 
 /* ---------- 3.1 NUMERI E UTILITA' ---------- */
@@ -1081,6 +1083,71 @@ void generaFibonacciVettore(int _n, int _v[_n]);
  */
 void generaPrimiVettore(int _n, int _v[_n]);
 
+
+/**
+ * Converte un numero scritto come vettore di cifre in una base qualsiasi nel suo valore decimale
+ * (la prima cifra del vettore e' la piu' significativa; ogni cifra deve essere < base).
+ * @param int Numero di cifre.
+ * @param int* Riferimento al vettore delle cifre.
+ * @param int Base in cui sono scritte le cifre (es. 2 per il binario).
+ * @return Valore decimale del numero.
+ */
+long long convertiDaBaseInDecimale(int _n, int _v[_n], int _base);
+
+/**
+ * Calcola una potenza intera: base elevato a esp (esp >= 0).
+ * @param int Base.
+ * @param int Esponente.
+ * @return Risultato della potenza (con esponente 0 vale 1).
+ */
+long long calcolaPotenza(int _base, int _esp);
+
+/**
+ * Calcola la parte intera della radice quadrata (il piu' grande r con r*r <= x),
+ * senza usare math.h. Per x negativo restituisce 0.
+ * @param int Numero.
+ * @return Radice quadrata intera.
+ */
+int calcolaRadiceIntera(int _x);
+
+/**
+ * Conta i divisori positivi di un numero (compresi 1 e il numero stesso).
+ * @param int Numero (>= 1).
+ * @return Numero di divisori.
+ */
+int contaDivisori(int _x);
+
+/**
+ * Verifica se un numero e' perfetto: uguale alla somma dei suoi divisori propri (es. 6 = 1+2+3).
+ * @param int Numero.
+ * @return true se perfetto, false altrimenti.
+ */
+bool verificaNumeroPerfetto(int _x);
+
+/**
+ * Verifica se un numero e' di Armstrong: uguale alla somma delle sue cifre
+ * elevate al numero di cifre (es. 153 = 1^3 + 5^3 + 3^3).
+ * @param int Numero.
+ * @return true se di Armstrong, false altrimenti.
+ */
+bool verificaNumeroArmstrong(int _x);
+
+/**
+ * Scompone un numero in fattori primi, in ordine crescente (es. 12 -> 2 2 3).
+ * Per 0 e 1 non salva nessun fattore.
+ * @param int Numero da scomporre.
+ * @param int* Vettore risultato (almeno 32 elementi).
+ * @param int* Puntatore dove salvare il numero di fattori.
+ */
+void scomponiInFattoriPrimi(int _x, int _v[], int *_n);
+
+/**
+ * Calcola il coefficiente binomiale "n su k" (quanti modi di scegliere k elementi tra n).
+ * @param int Numero n.
+ * @param int Numero k.
+ * @return Coefficiente binomiale, oppure 0 se k < 0 o k > n.
+ */
+long long calcolaBinomiale(int _n, int _k);
 
 /* ---------- 3.2 VETTORI EXTRA ---------- */
 
@@ -1225,6 +1292,75 @@ void spostaZeriInFondoVettore(int _n, int _v[_n]);
  */
 bool inserisciOrdinatoVettore(int *_n, int _capacita, int _v[], int _x);
 
+
+/**
+ * Trova la somma massima che si puo' ottenere sommando elementi CONSECUTIVI del vettore
+ * (algoritmo di Kadane). Con tutti elementi negativi restituisce il massimo elemento.
+ * @param int Numero di elementi del vettore (>= 1).
+ * @param int* Riferimento al vettore.
+ * @return Somma massima di un tratto consecutivo.
+ */
+int trovaSommaSottovettoreMax(int _n, int _v[_n]);
+
+/**
+ * Conta le coppie di posizioni (i < j) i cui elementi sommano a un valore dato.
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @param int Somma cercata.
+ * @return Numero di coppie trovate.
+ */
+int contaCoppieSommaVettore(int _n, int _v[_n], int _somma);
+
+/**
+ * Verifica se ogni elemento di a e' presente anche in b (come verificaSottoinsiemeVettore).
+ * @param int Numero di elementi del primo vettore.
+ * @param int* Primo vettore.
+ * @param int Numero di elementi del secondo vettore.
+ * @param int* Secondo vettore.
+ * @return true se tutti gli elementi di a sono in b, false altrimenti.
+ */
+bool verificaVettoreSottoinsieme(int _na, int _a[_na], int _nb, int _b[_nb]);
+
+/**
+ * Elimina tutti gli elementi pari dal vettore, mantenendo l'ordine degli altri.
+ * @param int* Puntatore al numero di elementi (viene aggiornato).
+ * @param int* Riferimento al vettore.
+ */
+void eliminaPariVettore(int *_n, int _v[]);
+
+/**
+ * Ruota il vettore a sinistra di k posizioni (con k negativo ruota a destra).
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @param int Numero di posizioni di cui ruotare.
+ */
+void ruotaSinistraKVettore(int _n, int _v[_n], int _k);
+
+/**
+ * Inverte l'ordine degli elementi tra due posizioni (estremi inclusi); il resto resta uguale.
+ * Gli indici devono essere validi (0 <= inizio, fine < n).
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @param int Indice del primo elemento del tratto.
+ * @param int Indice dell'ultimo elemento del tratto.
+ */
+void invertiParteVettore(int _n, int _v[_n], int _inizio, int _fine);
+
+/**
+ * Mescola a caso gli elementi del vettore (algoritmo di Fisher-Yates).
+ * Ricordarsi di chiamare srand(time(0)) una sola volta nel main.
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ */
+void mescolaVettore(int _n, int _v[_n]);
+
+/**
+ * Conta quanti valori DIVERSI ci sono nel vettore (come contaElementiDistintiVettore).
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @return Numero di valori distinti.
+ */
+int contaValoriDistintiVettore(int _n, int _v[_n]);
 
 /* ---------- 3.3 MATRICI EXTRA ---------- */
 
@@ -1429,6 +1565,157 @@ void sostituisciInMatrice(int _rows, int _cols, int _m[_rows][_cols], int _vecch
  * @return Numero di elementi primi.
  */
 int contaPrimiMatrice(int _rows, int _cols, int _m[_rows][_cols]);
+
+/**
+ * Conta gli elementi positivi (> 0) della matrice.
+ * @param int Numero di righe della matrice.
+ * @param int Numero di colonne della matrice.
+ * @param int* Riferimento alla matrice.
+ * @return Numero di elementi positivi.
+ */
+int contaPositiviMatrice(int _rows, int _cols, int _m[_rows][_cols]);
+
+/**
+ * Conta gli elementi negativi (< 0) della matrice.
+ * @param int Numero di righe della matrice.
+ * @param int Numero di colonne della matrice.
+ * @param int* Riferimento alla matrice.
+ * @return Numero di elementi negativi.
+ */
+int contaNegativiMatrice(int _rows, int _cols, int _m[_rows][_cols]);
+
+/**
+ * Riempie la matrice a scacchiera: 0 e 1 alternati (m[i][j] = (i + j) % 2).
+ * @param int Numero di righe della matrice.
+ * @param int Numero di colonne della matrice.
+ * @param int* Riferimento alla matrice.
+ */
+void riempiMatriceScacchiera(int _rows, int _cols, int _m[_rows][_cols]);
+
+/**
+ * Ruota di 90 gradi in senso orario una matrice QUADRATA, modificando la matrice stessa
+ * (senza matrice di appoggio).
+ * @param int Dimensione della matrice quadrata.
+ * @param int* Riferimento alla matrice.
+ */
+void ruotaMatriceQuadrata90OrarioSulPosto(int _n, int _m[_n][_n]);
+
+/* ---------- 3.4 ALTRE FUNZIONI UTILI ---------- */
+
+/**
+ * Salva in un vettore le posizioni di TUTTE le occorrenze di un valore.
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @param int Valore da cercare.
+ * @param int* Vettore dove salvare le posizioni (almeno n elementi).
+ * @param int* Puntatore al numero di posizioni trovate (viene calcolato).
+ */
+void cercaTutteOccorrenzeVettore(int _n, int _v[_n], int _x, int _pos[], int *_np);
+
+/**
+ * Conta quanti valori DIVERSI ci sono nel vettore (i duplicati contano una volta sola).
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @return Numero di valori distinti.
+ */
+int contaElementiDistintiVettore(int _n, int _v[_n]);
+
+/**
+ * Verifica se un valore e' presente nel vettore.
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @param int Valore da cercare.
+ * @return true se presente, false altrimenti.
+ */
+bool verificaPresenteInVettore(int _n, int _v[_n], int _x);
+
+/**
+ * Calcola la varianza: media dei quadrati degli scarti dalla media.
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @return Varianza del vettore.
+ */
+float calcolaVarianzaVettore(int _n, int _v[_n]);
+
+/**
+ * Calcola le frequenze: freq[k] = quante volte il valore k compare nel vettore.
+ * Funziona per valori compresi tra 0 e maxValore (gli altri vengono ignorati).
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @param int Valore massimo possibile nel vettore.
+ * @param int* Vettore delle frequenze (maxValore + 1 elementi).
+ */
+void calcolaIstogrammaVettore(int _n, int _v[_n], int _maxValore, int _freq[_maxValore + 1]);
+
+/**
+ * Verifica se il vettore e' una progressione aritmetica
+ * (la differenza tra elementi consecutivi e' sempre la stessa).
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ * @return true se e' una progressione aritmetica, false altrimenti.
+ */
+bool verificaProgressioneAritmetica(int _n, int _v[_n]);
+
+/**
+ * Ordina il vettore in modo CRESCENTE con il Quick Sort (ricorsivo).
+ * @param int Numero di elementi del vettore.
+ * @param int* Riferimento al vettore.
+ */
+void ordinaQuickSort(int _n, int _v[_n]);
+
+/**
+ * Verifica se ogni elemento di a e' presente anche in b (a e' "contenuto" in b).
+ * @param int Numero di elementi del primo vettore.
+ * @param int* Primo vettore.
+ * @param int Numero di elementi del secondo vettore.
+ * @param int* Secondo vettore.
+ * @return true se tutti gli elementi di a sono in b, false altrimenti.
+ */
+bool verificaSottoinsiemeVettore(int _na, int _a[_na], int _nb, int _b[_nb]);
+
+/**
+ * Verifica se la matrice quadrata e' antisimmetrica (m[i][j] == -m[j][i]).
+ * @param int Dimensione della matrice quadrata.
+ * @param int* Riferimento alla matrice.
+ * @return true se antisimmetrica, false altrimenti.
+ */
+bool verificaMatriceAntisimmetrica(int _n, int _m[_n][_n]);
+
+/**
+ * Riempie la matrice con la tabellina pitagorica: m[i][j] = (i + 1) * (j + 1).
+ * @param int Numero di righe della matrice.
+ * @param int Numero di colonne della matrice.
+ * @param int* Riferimento alla matrice.
+ */
+void riempiMatriceTabellina(int _rows, int _cols, int _m[_rows][_cols]);
+
+/**
+ * Riempie la matrice con numeri progressivi, riga dopo riga, a partire da un valore.
+ * @param int Numero di righe della matrice.
+ * @param int Numero di colonne della matrice.
+ * @param int* Riferimento alla matrice.
+ * @param int Primo valore da scrivere.
+ */
+void riempiMatriceProgressiva(int _rows, int _cols, int _m[_rows][_cols], int _start);
+
+/**
+ * Stampa la matrice con ogni numero allineato a destra in una colonna di larghezza fissa
+ * (output piu' ordinato quando i numeri hanno cifre diverse).
+ * @param int Numero di righe della matrice.
+ * @param int Numero di colonne della matrice.
+ * @param int* Riferimento alla matrice.
+ * @param int Larghezza di ogni colonna (numero di caratteri).
+ */
+void stampaMatriceAllineata(int _rows, int _cols, int _m[_rows][_cols], int _larghezza);
+
+/**
+ * Ruota la matrice di 180 gradi (equivale a specchiarla in orizzontale e in verticale).
+ * @param int Numero di righe della matrice.
+ * @param int Numero di colonne della matrice.
+ * @param int* Riferimento alla matrice.
+ * @param int* Matrice risultato (rows x cols).
+ */
+void ruotaMatrice180(int _rows, int _cols, int _m[_rows][_cols], int _ris[_rows][_cols]);
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
